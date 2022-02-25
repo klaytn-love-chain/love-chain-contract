@@ -1,0 +1,14 @@
+{
+  "name": "love-chain-contract",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/klaytn-love-chain/love-chain-contract.git",
+  "author": "iHoHyeon <hyunee169@naver.com>",
+  "license": "MIT",
+  "dependencies": {
+    "caver-js": "^1.6.8",
+    "dotenv": "^16.0.0",
+    "form-data": "^4.0.0",
+    "mongoose": "^6.2.3"
+  }
+}
