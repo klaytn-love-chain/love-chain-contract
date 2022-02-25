@@ -110,6 +110,7 @@ contract LoveChain {
     function writeCoupleName(uint256 tokenId, string memory name1, string memory name2) public { // 커플 이름 등록
         require(tokenOwner[tokenId] == msg.sender, "tokenOwner != sender");
 
+        _clearCoupleName(tokenId);
         _tokenCoupleName[tokenId].push(name1);
         _tokenCoupleName[tokenId].push(name2);
     }
@@ -162,7 +163,7 @@ contract NSeoulTowerMarket {
         address payable receiver = address(uint256(seller[tokenId]));
         uint256 _price = price[tokenId];
 
-        receiver.transfer(_price * (10 ** 16));
+        receiver.transfer(_price * (10 ** 18));
         LoveChain(_LoveChainAddress).safeTransferFrom(address(this), msg.sender, tokenId, _uint256toBytes(_price)); // data로 거래 가격을 전송
         _clearSeller(tokenId);
         _clearPrice(tokenId);
