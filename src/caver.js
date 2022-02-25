@@ -1,4 +1,7 @@
 import Caver from 'caver-js';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const option = {
   headers: [
