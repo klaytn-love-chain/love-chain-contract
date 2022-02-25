@@ -33,36 +33,41 @@ export const mint = async () => {
 
     const [background, oneLine, socialProfile, key, coupleImage, date] = val.attributes;
 
-    await TokenModel.create({
-      tokenId,
-      lockImage: imgUrl,
-      profileImage: {
-        onePerson: null,
-        twoPerson: null,
-      },
-      feature: {
-        date: date.value !== 'null',
-        oneLine: oneLine.value !== 'null',
-        coupleImage: coupleImage.value !== 'null',
-        socialProfile: socialProfile.value !== 'null',
-      },
-      options: {
-        date: null,
-        oneLine: null,
-        coupleImage: null,
-        socialProfile: {
-          oneInstagram: null,
-          twoInstagram: null,
-          oneTwitter: null,
-          twoTwitter: null,
-          oneURL: null,
-          twoURL: null,
+    const createTokenData = async () =>
+      TokenModel.create({
+        tokenId,
+        lockImage: imgUrl,
+        profileImage: {
+          onePerson: null,
+          twoPerson: null,
         },
-      },
-      isPrivate: false,
-      metaData: metadataURI,
-    });
+        feature: {
+          date: date.value !== 'null',
+          oneLine: oneLine.value !== 'null',
+          coupleImage: coupleImage.value !== 'null',
+          socialProfile: socialProfile.value !== 'null',
+        },
+        options: {
+          date: null,
+          oneLine: null,
+          coupleImage: null,
+          socialProfile: {
+            oneInstagram: null,
+            twoInstagram: null,
+            oneTwitter: null,
+            twoTwitter: null,
+            oneURL: null,
+            twoURL: null,
+          },
+        },
+        isPrivate: false,
+        metaData: metadataURI,
+      });
 
-    await mintWithTokenURI(process.env.N_SEOUL_TOWER_MARKET_ADDRESS, tokenId, metadataURI);
+    const result = await Promise.all([createTokenData(), mintWithTokenURI(process.env.N_SEOUL_TOWER_MARKET_ADDRESS, tokenId, metadataURI)])
+      .then(() => true)
+      .catch(() => false);
+
+    return result;
   }
 };
