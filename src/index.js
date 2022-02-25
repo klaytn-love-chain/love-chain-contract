@@ -1,5 +1,5 @@
 import dotenv from 'dotenv';
-import { mint } from './mint';
+import { mint } from './mint.js';
 
 dotenv.config();
 

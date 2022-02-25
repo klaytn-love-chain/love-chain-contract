@@ -6,9 +6,11 @@
   "author": "iHoHyeon <hyunee169@naver.com>",
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.26.0",
     "caver-js": "^1.6.8",
     "dotenv": "^16.0.0",
     "form-data": "^4.0.0",
     "mongoose": "^6.2.3"
-  }
+  },
+  "type": "module"
 }
