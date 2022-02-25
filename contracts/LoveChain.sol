@@ -20,7 +20,11 @@ contract LoveChain {
     mapping (uint256 => string[]) private _tokenCoupleName;
 
     bytes4 private constant _KIP17_RECEIVED = 0x6745782b;
-    uint256 private constant MINT_PRICE = 2; // 민팅 가격;
+    uint256 private MINT_PRICE = 22; // 민팅 가격;
+
+    function setMintPrice (uint256 price) public onlyDeployer {
+        MINT_PRICE = price;
+    } 
 
     modifier onlyDeployer () {
         require(msg.sender == deployer, "you are not deployer");
