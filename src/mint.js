@@ -15,11 +15,9 @@ export const mint = async () => {
 
   for await (const val of lockJSON) {
     const tokenId = val.edition;
-    console.log(tokenId);
-    if (tokenId < 100) break;
 
     const formData = new FormData();
-    formData.append('file', fs.createReadStream(`./build/images/${tokenId - 100}.png`));
+    formData.append('file', fs.createReadStream(`./build/images/${tokenId}.png`));
     const imgUrl = await uploadAsset(formData);
     if (!imgUrl) {
       console.log('이미지 업로드 실패');
@@ -66,7 +64,8 @@ export const mint = async () => {
         metaData: metadataURI,
       });
 
-    await Promise.all([createTokenData(), mintWithTokenURI(process.env.N_SEOUL_TOWER_MARKET_ADDRESS, tokenId, metadataURI)]).catch(() => {
+    const to = tokenId <= 80 ? process.env.N_SEOUL_TOWER_MARKET_ADDRESS : '0xe64932ce7A14B596466B8A18D5C317F097f16d37';
+    await Promise.all([createTokenData(), mintWithTokenURI(to, tokenId, metadataURI)]).catch(() => {
       throw Error('mint error');
     });
   }
